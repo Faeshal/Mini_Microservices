@@ -2,13 +2,13 @@ require("pretty-error").start();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const chalk = require("chalk");
 const helmet = require("helmet");
+const chalk = require("chalk");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const PORT = 1000;
-const CONNECTION_URI = "mongodb://localhost:27017/microservices_books";
-const bookRoutes = require("./routes/book");
+const PORT = 2000;
+const CONNECTION_URI = "mongodb://localhost:27017/microservices_customers";
+const customerRoutes = require("./routes/customer");
 
 // * Main
 app.use(helmet());
@@ -18,10 +18,10 @@ app.use(morgan("dev"));
 
 // * Routing
 app.get("/", (req, res) => {
-  res.json({ succes: true, message: "Hello From Books" });
+  res.json({ succes: true, message: "Hello From Customer" });
 });
 
-app.use(bookRoutes);
+app.use(customerRoutes);
 
 // * Database Connection
 mongoose.connect(
@@ -35,7 +35,7 @@ mongoose.connect(
     if (err) {
       console.error(err);
     }
-    console.log(chalk.blueBright("MongoDB UP : Books Service"));
+    console.log(chalk.blueBright("MongoDB UP : Customer Service"));
   }
 );
 
@@ -43,5 +43,5 @@ app.listen(PORT, (err) => {
   if (err) {
     console.error(chalk.red.inverse(err));
   }
-  console.log(chalk.greenBright.inverse(`Book Service Up : ${PORT}`));
+  console.log(chalk.greenBright.inverse(`Customer Service Up : ${PORT}`));
 });
